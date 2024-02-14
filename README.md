@@ -1,1 +1,4 @@
 # Sine-wave-generation-using-PWM-with-LCD-and-I2C-7-segment-display
+This project aims to develop and implement a Pulse Width Modulation (PWM) system for generating sinusoidal waveforms. The system utilizes a high-speed asynchronous SRAM available on the DE2-115 board to store 16-bit samples. Initialization of the SRAM occurs through data sourced from a ROM, which is constructed using a memory initialization file (MIF) representing a 16-bit sinusoidal function with a DC offset equivalent to the signal's amplitude.
+
+The system is configured to read 256 samples from the SRAM at variable rates to enable the generation of PWM signals representing sine waves at different frequencies, specifically 60 Hz, 120 Hz, and 1000 Hz. The output of the PWM signal passes through a low-pass active filter to produce smoother sine functions suitable for display on an oscilloscope.
