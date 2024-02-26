@@ -30,74 +30,75 @@ begin
     process(clk, reset, counter)
     begin
 	 if reset = '1' then
-        state <= Initialization;
-    elsif (counter = X"FF") then -- 
-        state <= Test; 
-	 elsif rising_edge(clk) then
+           state <= Initialization;
+    	   elsif (counter = X"FF") then -- 
+        	state <= Test; 
+	   elsif rising_edge(clk) then
 		  if KEY1 = '1' and KEY2 = '1' and KEY3 = '1' then
-				down <= false;
+		     down <= false;
 		  end if;
         case state is
-				when Initialization =>
-						if counter = X"00" and reset = '0' then --If it reaches FF and reset is NOT pressed, enter test
-							state <= Test;
-						end if;
+	    when Initialization =>
+		if counter = X"00" and reset = '0' then --If it reaches FF and reset is NOT pressed, enter test
+		    state <= Test;
+		end if;
 		
             when Test =>
                 if KEY1 = '0' and down = false then
-						  down <= true;
+		    down <= true;
                     state <= Pause;
-                elsif KEY2 = '0' and down = false then
-						  down <= true;
-                    state <= PWM_GEN_60;
-					 elsif KEY0 = '0' then
-						 next_state <= Initialization;
+                    elsif KEY2 = '0' and down = false then
+			down <= true;
+                        state <= PWM_GEN_60;
+		    elsif KEY0 = '0' then
+			next_state <= Initialization;
                 end if;
 					 
             when Pause =>
                 if KEY1 = '0' and down = false then
-					 	  down <= true;
+		    down <= true;
                     state <= Test;
-					 elsif KEY0 = '0' then
-						next_state <= Initialization;
+		    elsif KEY0 = '0' then
+			next_state <= Initialization;
                 end if;
 					 
             when PWM_GEN_60 =>
                 if KEY2 = '0' and down = false then
-						  down <= true;
+		    down <= true;
                     state <= Test;
-					 elsif KEY3 = '0' and down =false then
-						down <= true;
-						state <= PWM_GEN_120;
-					 elsif KEY0 = '0' then
-						next_state <= Initialization;
+		    elsif KEY3 = '0' and down =false then
+		    	down <= true;
+		    	state <= PWM_GEN_120;
+		    elsif KEY0 = '0' then
+			next_state <= Initialization;
                 end if;
 					 
             when PWM_GEN_120 =>
                 if KEY2 = '0' and down = false then
-						  down <= true;
+		    down <= true;
                     state <= Test;
-					 elsif KEY3 = '0' and down = false then
-					   down <= true;
-						state <= PWM_GEN_1000;
-					 elsif KEY0 = '0' then
-						next_state <= Initialization;
+		    elsif KEY3 = '0' and down = false then
+			down <= true;
+			state <= PWM_GEN_1000;
+		    elsif KEY0 = '0' then
+			next_state <= Initialization;
                 end if;
 					 
             when PWM_GEN_1000 =>
                 if KEY2 = '0' and down = false then
-						  down <= true;
+		    down <= true;
                     state <= Test;
-					 elsif KEY3 = '0' and down = false then
-					   down <= true;
-						state <= PWM_GEN_60;
-				    elsif KEY0 = '0' then
-						next_state <= Initialization;
+		    elsif KEY3 = '0' and down = false then
+		    	down <= true;
+		    	state <= PWM_GEN_60;
+		    elsif KEY0 = '0' then
+		    	next_state <= Initialization;
                 end if;
-				when others =>
-					state <= Initialization;
+			
+	   when others =>
+		 state <= Initialization;
         end case;
-		  end if;
+	end if;
     end process;
 
  with state select 
@@ -117,9 +118,5 @@ begin
                    "0011" when others;  -- Default value for unknown states 
 
     state_out <= state_value;
-	 
-	 
-
- 
 
 end Behavioral; 
