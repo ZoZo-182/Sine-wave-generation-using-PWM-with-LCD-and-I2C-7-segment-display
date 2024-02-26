@@ -7,11 +7,11 @@ entity StateMachine is
     Port (
         clk : in std_logic;
         reset : in std_logic;
-		  KEY0 : in std_logic;
+	KEY0 : in std_logic;
         KEY1 : in std_logic;
         KEY2 : in std_logic;
         KEY3 : in std_logic;
-		  counter : in STD_LOGIC_VECTOR(7 downto 0);
+	counter : in STD_LOGIC_VECTOR(7 downto 0);
         state_out : out std_logic_vector(3 downto 0) -- 4-bit state output
     );
 end StateMachine;
@@ -26,8 +26,6 @@ architecture Behavioral of StateMachine is
 begin 
 
     -- State transition process
-  
-
     -- Next state logic
     process(clk, reset, counter)
     begin
@@ -114,7 +112,7 @@ begin
 
                    "1010" when PWM_GEN_120, 
 						 
-						 "1011" when PWM_GEN_1000,
+		   "1011" when PWM_GEN_1000,
 
                    "0011" when others;  -- Default value for unknown states 
 
